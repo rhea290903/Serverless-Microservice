@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Resources:
+  EmployeeFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda.handler
+      Runtime: nodejs20.x
+      CodeUri: ./
+      MemorySize: 128
+      Timeout: 120
+      Environment:
+        Variables:
+          PGUSER: 'postgres'
+          PGHOST: 'employee.cmbav2rvlbtx.ap-south-1.rds.amazonaws.com'
+          PGDATABASE: 'Employee'
+          PGPASSWORD: 'Rs290903'
+          PGPORT: '5432'
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /employee
+            Method: get
